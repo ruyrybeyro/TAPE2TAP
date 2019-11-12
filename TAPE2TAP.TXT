@@ -1,0 +1,267 @@
+
+Tape2tap v1.20 --- digitalizes spectrum tapes in a PC (MS-DOS)
+		   through a SoundBlaster or the printer port
+
+	Introduction
+	------------
+
+	First of all, will introduce myself: I am a Portuguese student
+(born 12/09/70). I have already worked  3 years at a  Software house in C
+and sometimes in assembly.  
+
+	Hope you enjoy this tiny program. I have tested it a lot and found it
+is now in a reliable state to distribute it.
+
+	I did  Tape2Tap as a preliminary preparation to a Spectrum emulation 
+under Windows; if it all comes right this emulation will be due by April'96.
+[No it don't...May'96, that's is...].
+
+	Tape2Tap is  compatible will  versions of DOS up from 3.0 (including 
+Windows'95 - enclosed should come a TAPE2TAP.PIF);
+
+	This program is postware, so  if  you like it and want to use it, you 
+should (well at least you can try to...) send a postcard about you homeland to 
+the following address:
+
+		Rui Ribeiro
+		Av. Carvalha, 280 3o. D
+		P-4420 Gondomar
+		Portugal
+
+	If you really will send a postcard, tell me where you get the program, 
+(if in Internet write the address  where you  get it)! I can read English, 
+French, Spanish and Portuguese,  so you do not have any excuse! Of course, if 
+you want to send any money, I will make no objections...
+
+	Hope Tape2Tap will be of any use to you.
+
+	Rui Ribeiro -   rff-ribe@csm.uew.ac.uk (until June 1996)
+                        i890478@dei.isep.ipp.pt
+                        rui@ipp.pt
+
+------------------------------------------------------------------------
+	If you want spectrum Software and you don't have Internet acess,
+try this BBS:
+
+			MiCroRun BBS    [Oporto, Portugal]
+
+		     (351)02-5104669  [28800]
+		  or (351)02-5106214  [14400]
+
+	This BBS also has loads of Spectrum software. I left there almost
+my entire collection, but I think they are in a private area. Talk to the 
+co-sysop if you want to know more about that!
+
+	I am registered as Star Man there, but at the moment I am not in 
+Portugal.
+
+
+	Instructions
+	------------
+
+	You call Tape2Tap and:
+
+	. if you have a SoundBlaster, it will autodetect it and will try to use
+	it (if for some reason you do not want to autodected SoundBlaster use 
+	the /ds option: disable SoundBlaster detection)
+
+	. if you don't have a SoundBlaster it will try to digitalize data from 
+	the Printer Port
+
+	The data will be saved in W1.TAP (in Z80 format) at the current
+directory. If W1.TAP does not exist, it will be created. If not, data will be 
+appended  to it. If a block gives an error it will be not saved, so you have to 
+rewind and try to load the block again. (a recorder with a counter will be 
+handy.)
+	
+	You notice that something is being read by Tape2Tap as the old ways: 
+the colours of the stripes change. (unfamiliar, uh?)
+
+	When Tape2Tap can read a block successfully, it will the display the 
+familiar 'Program:' or  'Bytes:' message followed by the corresponding name...
+so in the very first block of the tape you should get no errors and the name 
+right...if you did not you must try some different tape volume or something.
+(were not you missing this in your PC?)
+
+	Inside Tape2Tap you can use 5 keys:
+
+     - ESC -- exit program (don't do that, unless you are finished with the 
+	current block)
+     - 'S' -- turn PC speaker on  (to hear this sounds forgotten long ago by 
+	humanity)
+     - 'N' -- turn PC speaker off (the original Spectrum ought to do that!)
+     - '1' -- disable CRC checking (use with extreme care! You are in fact 
+	disabling error checking...but there are software protections that 
+	change the CRC)
+     - '2' -- enable CRC (when you skip the offending block, restore this as 
+	SOON AS POSSIBLE!)
+     - 'P' -- starting using the printer port instead the SoundBlaster as the
+        inputing device
+
+	The cables
+	----------
+
+	If you are fortunate  enough to have a SoundBlaster and still your
+Spectrum cable, you can go pick it, and plug it to SoundBlaster's Line In the 
+corresponding place in your tape recorder (Line Out,Ear).
+
+	Anyway if you have a SoundBlaster, it suffices to get a cable to 
+connect the Line IN to your tape recorders Line Out or Ear.
+
+
+
+	To the more unfortunate people (like me):
+
+	* You can buy one tape adapter from BG services, UK; it's compatible.
+
+	Or you can build it yourself:
+
+	. you need a 25-pin D-type connector (just like the one that plugs your 
+	printer to your computer)
+	. a jack connector to plug to tape recorder
+	. some cable
+
+		(1)     (2)   (Female connector seen from solder side)
+	      ___|_______|___________________________________________
+	  13  \  o   .   o   .   .   .   .   .   .   .   .   .   .  / 1
+	       \   .   .   .   .   .   .   .   .   .   .   .   .   /
+	     25 \_________________________________________________/ 14
+		    
+		  
+
+
+	At the jack (mono):
+	------------
+
+	    (1)     (2)
+	     |       |
+	     |       |
+	     .-D1>---.          Don't try to see if this works without the
+	     |       |       diode and the resistor. If you do that you can
+	     |       R1      severely damage your printer port!
+	     |       |
+	      \      [ (4)
+		\    [
+	    (3)  [   [     <-- This pretends to be a mono jack
+		  ---
+		   ]
+		   .
+		   ]
+
+	R1 = 100 Ohms
+	D1 = 4.7V Zener diode
+
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+	For those more technically oriented I have here a design that
+		provides a much greater noise immunity.
+
+	 (I DON'T KNOW WETHER THIS SECOND SCHEME IS CORRECT OR NOT.
+	  I just find this lying around so if you decide to use it don't
+	blame me if it doesn't work. If however, you can put it to work,
+	could you send me a email?).
+
+      . 2 resistors  (R)
+      . 3 capacitors (C)
+      . 1 diode
+				   -----.---------- (3)
+				   |    |
+	 (1) ---- C1 ---.--- R1 ---.    D1
+			|          |    \/
+			|          |    |
+			C2         R2   |
+			|          |    |
+			|         GND   |
+		       GND              |
+					|
+					|
+					|
+					|
+	  (2)  -------------------------.----R3---- (4)
+		   
+	C1 = 0,1uF
+	C2 = 1KpF
+	C3 = 1KpF
+	D1 = 4.7V Zener diode
+	R1 = 650 ohms
+	R2 = 1 Khom
+	R3 = 100 ohms
+
+	GND = GROUND
+
+	+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+	Technical Details
+	-----------------
+
+	Tape2Tap was designed  to work in any computer, at any speed. To
+accomplish this feat it uses only 8086 opcodes, and uses the PIT to time the
+tape data.
+
+	It controls the SoundBlaster directly, without any use of DMA (so in
+theory, it will work with no problems with SoundBlaster compatibles).
+
+	Between block of tapes, all data is output to disk, so I have no idea
+how it will behave with diskettes (sorry!).
+
+	Tape2Tap manages to load almost all tapes at regular or turbo speed.
+This strength  is also is weakness:  to cope with this, I cannot assume
+transition times, so the program is more vulnerable to tape errors! There is
+only one kind of protection that Tape2Tap cannot cope: a silence in the middle
+of a block!
+
+	I did what I  could with sound sampling, but I think very noisy tapes
+will not get much  chance with this program: if your tape is original you are
+lucky.
+
+	Of course, if you digitalize turbo tapes, the emulator must recognise
+them or you must hack  the program. Well, this program was my answer for not
+having to hack the program. IF YOU HAVE TURBO TAPES DIGITALIZED YOU MUST GET
+'WARAJEVO'  SPECTRUM  EMULATOR AND CONVERT THE  TAPE FILES WITH THE UTILITY
+ENCLOSED... (if you can get to Internet try at:
+		fpt://ftp.nvg.unit.no/pub/sinclair/utils/pc )
+
+	If you are having problems, try to not use any memory manager.
+
+Acknowledgements
+----------------
+
+	I would like to thank:
+
+	- Alexandre Ulisses, for his book.
+
+	- Pedro Oliveira, for lending me is SoundBlaster Pro card.
+
+	- Filipe Silva, for his tapes.
+
+	- Francisco Cotrina, for providing a home for my files.
+
+
+History
+-------
+
+; V1.00 95/08/23        .  original version
+; V1.01 95/10/06        .  source better structured
+;                       .  false block detection reduced
+;                       .  colours added to make border stripes like real
+;                         Spectrum
+; V1.10 95/10/17        . added SB support
+; V1.11 95/10/29        .  better noise immunity
+; V1.12 95/12/27        . changed input pin of printer port (Busy pin, now)
+; v1.13 96/06/06        .  Line-In Input modified, the volume was not properly
+;                       . adjusted for SB Pro 16 and better cards
+; v1.20 96/10/03	. created WINSTUB for Windows'95 setup
+;			. created option to switch in runtime the inputing
+;			device to the printer port
+
+To do:
+
+  I am done with Tape2Tap! You are free to correct and improve it. For this
+people, the documents I am providing in the SBDOCS directory will be extremely
+useful. If you are sucefful, don't forget that other people may be insterested.
+And include all this files, beside your own new ones...
+
+	Regards,
+	Rui
+
+
