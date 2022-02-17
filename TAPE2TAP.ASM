@@ -38,6 +38,8 @@
 ; v1.20 96/10/03	. created WINSTUB for Windows'95 setup
 ;			. created option to switch in runtime the inputing
 ;			device to the printer port
+; v1.21 2022/02         . added serial port
+		          data carrier detect pin
 
 INCLUDE         TAPE.INC
 INCLUDE         PIT.INC
@@ -561,6 +563,7 @@ value_10        db      10
 copy_p61h       db      0
 colour          db      0       ; actual color of border
 printer_port    dw      0379h
+serial_port	dw	03feh   ; modem status register (03f8h base)
 b_program       db      0dh, 0ah, 'Program : $'
 b_code          db      0dh, 0ah, 'Bytes   : $'
 w_error         db      0dh, 0ah, 'This program cannot be run under Windows.'
@@ -571,9 +574,9 @@ w_error         db      0dh, 0ah, 'This program cannot be run under Windows.'
 		db	'TapeStub instead.'
 		db      0dh, 0ah, '$'
 copyright       db      0dh, 0ah
-		db      'Tape2Tap v1.20 --- reads ZX Spectrum''s tapes in the Pc.'
+		db      'Tape2Tap v1.21 --- reads ZX Spectrum''s tapes in the Pc.'
 		db      0dh, 0ah
-		db      'Copyright December 1995-September 1996'
+		db      'Copyright December 1995-September 1996 (serial 2022)'
 		db      ', Rui Fernando Ferreira Ribeiro.'
 		db      0dh, 0ah
 		db      0dh, 0ah
@@ -583,11 +586,12 @@ messg_begin     db      0dh, 0ah
 		db      'You can press at any time:'
 		db      0dh, 0ah, 0dh, 0ah
 		db      ' - ESC exit program.', 0dh, 0ah
-		db      ' - S   turn speaker on.', 0dh, 0ah
+		db      ' - O   turn speaker on.', 0dh, 0ah
 		db      ' - N   turn speaker off.', 0dh, 0ah
 		db      ' - 1   disable block CRC.', 0dh, 0ah
 		db      ' - 2   enable  block CRC.', 0dh, 0ah
 		db	' - P   use printer port for input data.', 0dh, 0ah
+		db	' - S   use serial  port for input data.', 0dh, 0ah
 		db      0dh, 0ah
 		db      '$'
 
@@ -628,4 +632,3 @@ stackseg  ends                          ; End of stack segment
 		end     begin_code
 
 ; EOF: Tape2Tap.asm
-

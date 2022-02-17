@@ -64,20 +64,29 @@ local		no_space, no_sound, leave, nokey, test_1, test_2
 		cmp	al,BREAK_KEY_CODE
 		jnz	no_space
 		jmp	leave_prog
-no_space:	cmp	al,31		; test for 'S' key
+no_space:	cmp	al,18h		; test for 'O' key
 		jnz	no_sound
 		mov	byte ptr ds:[speaker_on],2
 no_sound:	cmp	al,49		; test for 'N' key
 		jnz	leave
 		mov	byte ptr ds:[speaker_on],0
 leave:          cmp	al,25		; test for 'P' key
-		jnz	test_1
+		jnz	serial
 
 		xor	dx,dx
 		; 'disable' SB address (do not use it anymore)
 		mov	word ptr ds:[sb_base_addr],dx
 		; and activate Printer
 		mov	dx,word ptr ds:[printer_port]
+
+serial:         cmp     al,1fh          ; test for 'S' key
+                jnz     test_1
+
+                xor     dx,dx
+                ; 'disable' SB address (do not use it anymore)
+                mov     word ptr ds:[sb_base_addr],dx
+                ; and activate Printer
+                mov     dx,word ptr ds:[serial_port]
 
 test_1:		cmp	al,2		; test for '1' key
 		jnz	test_2
@@ -129,4 +138,3 @@ RTC2DOSCLK	MACRO
 		ENDM
 
 ; EOF: Tape.inc
-
