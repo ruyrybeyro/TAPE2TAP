@@ -85,7 +85,7 @@ serial:         cmp     al,1fh          ; test for 'S' key
                 xor     dx,dx
                 ; 'disable' SB address (do not use it anymore)
                 mov     word ptr ds:[sb_base_addr],dx
-                ; and activate Printer
+                ; and activate Serial
                 mov     dx,word ptr ds:[serial_port]
 
 test_1:		cmp	al,2		; test for '1' key

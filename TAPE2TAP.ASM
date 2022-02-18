@@ -39,7 +39,7 @@
 ;			. created option to switch in runtime the inputing
 ;			device to the printer port
 ; v1.21 2022/02         . added serial port
-		          data carrier detect pin
+;		          data carrier detect pin
 
 INCLUDE         TAPE.INC
 INCLUDE         PIT.INC
@@ -73,7 +73,7 @@ begin_code:
 		lea     dx,copyright
 		PRINT_STRING
 
-		mov     ax,1600h        ; see if in Windows
+		mov     ax,1600h        ; in Windows?
 		int     2fh
 		cmp     ax,1600h
 		jz      not_windows
@@ -93,7 +93,7 @@ not_windows:    lea     dx,messg_begin
 		int     21h             ; return data segment in AX
 		jnc     enough_memory
 
-					; Print unsuficient memory
+					; Print insuficient memory
 					; message
 not_enough:     lea     dx,error_mem
 		PRINT_STRING
